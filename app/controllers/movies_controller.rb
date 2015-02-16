@@ -46,6 +46,14 @@ class MoviesController < ApplicationController
       @movies = @movies.select{|x| rate_filter.include? x.rating}
     end
 
+    # Edge case; fill in from session if blank ratings.
+    if params[:ratings].nil? && !session[:filter_ratings].nil?
+      @filter_ratings = session[:filter_ratings]
+      @sort = session[:sort]
+      flash.keep
+      redirect_to movies_path({order_by: @sort, ratings: @filter_ratings})
+    end
+
   end
 
   def new
