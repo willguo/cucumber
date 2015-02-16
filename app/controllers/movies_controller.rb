@@ -7,18 +7,45 @@ class MoviesController < ApplicationController
   end
 
   def index
-    #@movies = Movie.all
+    
+    # Unsorted movies, initialized.
+    @movies = Movie.all
 
-    if params[:title_sort] == "on"
-      @movies = Movie.order("title asc")
-      #@movies.sort_by! {|u| u.title}
+    # Generate all possible ratings.
+    @all_ratings = Movie.possible_ratings
+
+    # Update type of sort if new param detected.
+    if !params[:sort].nil?
+      if params[:sort] == session[:sort]
+        session[:sort] = nil
+      else
+        session[:sort] = params[:sort]
+      end
+    end
+
+    # Update rating filtering, store session ratings.
+    if !params[:ratings].nil?
+      @filter_ratings = params[:ratings]
+      session[:filter_ratings] = @filter_ratings
+    end
+
+    # Filter by sort.
+    if session[:sort] == "title"
+      @movies.sort! {|x, y| x.title <=> y.title}
       @movie_hilite_class = "hilite"
-    elsif params[:date_sort] == "on"
-      @movies = Movie.order("release_date asc")
+    elsif session[:sort] == "release_date"
+      @movies.sort! {|x, y| x.release_date <=> y.release_date}
       @date_hilite_class = "hilite"
     else
-      @movies = Movie.all
+      flash[:message] = "Should not have reached this point."
     end
+
+    # Filter by rating.
+    if !session[:filter_ratings].nil?
+      rate_filter = session[:filter_ratings]
+      @movies = @movies.select{|x| rate_filter.include? x.rating}
+    end
+
   end
 
   def new
