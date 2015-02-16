@@ -16,11 +16,16 @@ class MoviesController < ApplicationController
 
     # Update type of sort if new param detected.
     if !params[:sort].nil?
-      if params[:sort] == session[:sort]
-        session[:sort] = nil
-      else
-        session[:sort] = params[:sort]
-      end
+      
+      # Wanted to be able to toggle sort, but guess we dont want that :(
+
+      # if params[:sort] == session[:sort]
+      #   session[:sort] = nil
+      # else
+      #   session[:sort] = params[:sort]
+      # end
+      
+      session[:sort] = params[:sort]
     end
 
     # Update rating filtering, store session ratings.
