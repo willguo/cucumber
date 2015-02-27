@@ -51,3 +51,7 @@ Then /I should see all the movies/ do
   #page.all(:css, 'a#person_123')
   #num_rows = movies_table
 end
+
+Then /the director of "(.*)" should be "(.*)"/ do |movie, director|
+  assert (Movie.find_by_title(movie).director == director)
+end
