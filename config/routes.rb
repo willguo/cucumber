@@ -56,4 +56,8 @@ Rottenpotatoes::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
   resources :movies
+
+  # Added get route for movies with same director.
+  get 'movies/get_movies_with_same_director/:id' => 'movies#find_movies_same_director', :as => :find_movies_same_director
+
 end

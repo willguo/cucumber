@@ -6,4 +6,9 @@ class Movie < ActiveRecord::Base
   	return ['G','PG','PG-13','R']
   end
 
+  # Check to see if director matches Movie's director.
+  def self.same_director(chosen_director)
+  	return Movie.where(:director => chosen_director)
+  end
+  
 end
