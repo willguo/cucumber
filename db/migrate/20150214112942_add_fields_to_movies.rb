@@ -5,6 +5,5 @@ class AddFieldsToMovies < ActiveRecord::Migration
     add_column :movies, :release_date, :datetime
     add_column :movies, :rating, :string
     add_column :movies, :description, :text
-    add_column :movies, :director, :string
   end
 end

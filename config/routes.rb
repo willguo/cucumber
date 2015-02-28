@@ -50,6 +50,8 @@ Rottenpotatoes::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
+  get 'get_movies_same_director/:id' => 'movies#find_movies_same_director', :as => :find_movies_same_director
+
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
@@ -57,7 +59,5 @@ Rottenpotatoes::Application.routes.draw do
   # match ':controller(/:action(/:id))(.:format)'
   resources :movies
 
-  # Added get route for movies with same director.
-  get 'movies/get_movies_with_same_director/:id' => 'movies#find_movies_same_director', :as => :find_movies_same_director
 
 end

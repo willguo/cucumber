@@ -29,7 +29,11 @@ module NavigationHelpers
     
     when /^the details page for "(.*)"$/
       movie_details = Movie.find_by_title($1)
-      edit_movie_path(movie_details)
+      movie_path(movie_details)
+
+    when /^the Similar Movies page for "(.*)"$/
+      sim_details = Movie.find_by_title($1)
+      find_movies_same_director_path(sim_details)
 
     else
       begin

@@ -95,10 +95,11 @@ class MoviesController < ApplicationController
     @chosen_director = @movie.director
 
     if @chosen_director.nil? || @chosen_director.blank?
-      flash[:notice] = "'#{@movie.title}' is missing a director."
+      flash[:notice] = "'#{@movie.title}' has no director info."
       redirect_to movies_path
     else
-      @chosen_movies = Movie.same_director(@chosen_director)
+      #@chosen_movies = Movie.same_director(@chosen_director)
+      @chosen_movies = Movie.find_all_by_director(@chosen_director)
     end
   end
 end
